@@ -3,27 +3,27 @@ services:
   frontend-nodejs:
     image: node:10.11-jessie
     volumes:
-    - ./:/var/www/
+      - ./:/var/www/
     working_dir: /var/www/
     tty: true
 
   backend-nginx:
     volumes:
-    - ./:/var/www/
+      - ./:/var/www/
     build:
       context: ./docker/backend/nginx
     ports:
-    - "8889:80"
+      - "8889:80"
 
   backend-php-fpm:
     volumes:
-    - ./backend:/var/www/
+      - ./:/var/www/
     build:
       context: ./docker/backend/php-fpm
 
   backend-php-cli:
     volumes:
-    - ./backend:/var/www/
+      - ./:/var/www/
     build:
       context: ./docker/backend/php-cli
     working_dir: /var/www/
