@@ -30,6 +30,9 @@ install:
 	$(docker_compose) exec "$(PHP_CLI_CONTAINER_NAME)" composer install --no-interaction --ansi --no-suggest
 	$(docker_compose) run --rm "$(NODE_CONTAINER_NAME)" npm install
 
+composer:
+	$(docker_compose) exec "$(PHP_CLI_CONTAINER_NAME)" composer  $(filter-out $@,$(MAKECMDGOALS))
+
 %:
 	@:
 
@@ -63,6 +66,9 @@ controllerandmodel:
 
 invokedcontroller:
 	$(docker_compose) exec "$(PHP_CLI_CONTAINER_NAME)" php artisan make:controller -i $(filter-out $@,$(MAKECMDGOALS))
+
+request:
+	$(docker_compose) exec "$(PHP_CLI_CONTAINER_NAME)" php artisan make:request $(filter-out $@,$(MAKECMDGOALS))
 
 model:
 	$(docker_compose) exec "$(PHP_CLI_CONTAINER_NAME)" php artisan make:model $(filter-out $@,$(MAKECMDGOALS))
